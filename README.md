@@ -1,4 +1,4 @@
-Just a small hobby project where I built [Conway's Game of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life) from scratch using React and Typescript. Took a couple of hours and was pretty fun.
+Just a small hobby project where I built [Conway's Game of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life) from scratch using React and Typescript. Took a couple of hours and was pretty fun. It's a pretty horribly written code that needs refactoring.
 
 
 
