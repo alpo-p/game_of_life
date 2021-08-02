@@ -1,3 +1,7 @@
+Just a small hobby project where I built [Conway's Game of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life) from scratch using React and Typescript. Took a couple of hours and was pretty fun.
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
