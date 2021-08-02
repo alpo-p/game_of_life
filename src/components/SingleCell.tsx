@@ -5,6 +5,7 @@ const gridBoxStyleDead = {
   borderWidth: 1,
   height: 12,
   width: 12,
+  margin: 0.5,
 };
 
 const gridBoxStyleAlive = {
