@@ -1,5 +1,4 @@
 import React from 'react';
-import { useEffect } from 'react';
 import { useState } from 'react';
 
 const gridBoxStyleDead = {
@@ -16,17 +15,22 @@ const gridBoxStyleAlive = {
   backgroundColor: 'black',
 };
 
-interface P { isAlive?: boolean; }
+interface P { 
+  isAlive?: boolean,
+  handleClickEvent: (x: number, y: number) => void
+  position: {
+    x: number,
+    y: number
+  }
+}
 
-export const SingleCell = ({ isAlive }: P) => {
-  const [aliveState, setAliveState] = useState<boolean>(false);
-
-  useEffect(
-    () => setAliveState(Boolean(isAlive))
-  ,[]);
+export const SingleCell = ({ isAlive, handleClickEvent, position }: P) => {
+  const [aliveState, setAliveState] = useState(Boolean(isAlive));
 
   const handleClick = () => {
     setAliveState(state => !state);
+    const { x, y } = position;
+    handleClickEvent(x, y);
   };
 
   return (

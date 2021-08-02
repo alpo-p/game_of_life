@@ -3,7 +3,7 @@ import React from 'react';
 import { Grid } from './components/Grid';
 import { createRandomArray } from './utils';
 
-const initialGrid = createRandomArray(5,5);
+const initialGrid = createRandomArray(15,15);
 
 function App() {
   return (
