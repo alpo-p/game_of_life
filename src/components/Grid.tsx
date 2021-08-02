@@ -23,7 +23,7 @@ export const Grid = ({ initialGrid }: Props) => {
 
   useEffect(() => {
     setGrid(initialGrid);
-  }, []);
+  }, [initialGrid]);
 
   return (
     <div style={styles.container}>
