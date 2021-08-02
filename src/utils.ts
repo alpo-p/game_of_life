@@ -10,3 +10,16 @@ export const createRandomArray = (x: number, y: number): number[][] => {
 
   return outputArray;
 };
+
+export const createEmptyArray = (x: number, y: number): number[][] => {
+  const outputArray = [];
+  for (let i = 0; i < x; i++) {
+    const row = [];
+    for (let j = 0; j < y; j++) {
+      row.push(0);
+    }
+    outputArray.push(row);
+  }
+
+  return outputArray;
+};

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { v4 as uuid } from 'uuid';
+import { createEmptyArray, createRandomArray } from '../utils';
 import { SingleCell } from './SingleCell';
 
 interface Props {
@@ -18,9 +19,16 @@ const styles = {
   }
 };
 
-export const Grid = ({ initialGrid }: Props) => {
+
+export const Grid = () => {
+  const [gridSize, setGridSize] = useState({x: 15, y: 15});
+  const initialGrid = createRandomArray(gridSize.x, gridSize.y);
+
   const [grid, setGrid] = useState<number[][]>(initialGrid);
+  const [isPlaying, setIsPlaying] = useState(false);
+
   const [seconds, setSeconds] = useState(0);
+
 
   const updateGrid = () => {
     console.log("running the function");
@@ -32,7 +40,9 @@ export const Grid = ({ initialGrid }: Props) => {
       [1, -1],
       [1, 1],
       [-1, 0],
-      [1, 0]
+      [1, 0],
+      [1, 1],
+      [-1, -1],
     ];
 
     for (let i = 0; i < grid.length; i++ ) {
@@ -52,7 +62,7 @@ export const Grid = ({ initialGrid }: Props) => {
             }
         });
 
-        if (grid[i][j] === 1 && (neigbhourCount > 3 || neigbhourCount === 1 )) {
+        if (grid[i][j] === 1 && (neigbhourCount > 3 || neigbhourCount < 2 )) {
           copyedGrid[i][j] = 0;
         }
 
@@ -66,14 +76,16 @@ export const Grid = ({ initialGrid }: Props) => {
   }; 
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setSeconds(sec => sec + 1);
-    }, 1000);
-    updateGrid();
-    return () => clearInterval(interval);
-  }, [seconds]);
+    if (isPlaying) {
+      const interval = setInterval(() => {
+        setSeconds(sec => sec + 1);
+      }, 1000);
+      updateGrid();
+      return () => clearInterval(interval);
+    }
+  }, [seconds, isPlaying]);
 
-  const handleClickEvent = (x: number, y: number) => {
+  const handleClickCell = (x: number, y: number) => {
     setGrid(matrix => {
       if (matrix[x][y] === 0) {
         matrix[x][y] = 1;
@@ -84,22 +96,44 @@ export const Grid = ({ initialGrid }: Props) => {
     });
   };
 
+  const randomizeCells = () => setGrid(createRandomArray(gridSize.x, gridSize.y));
+  const emptyCells = () => setGrid(createEmptyArray(gridSize.x, gridSize.y));
+
+  const onChangeGridSize = (size: number) => {
+    setGridSize({x: size, y:size});
+    return setGrid(createRandomArray(size, size));
+  };
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
   return (
-    <div style={styles.container}>
-      {grid.map((row, x) => 
-        <div style={styles.row} key={uuid()}>
-          {
-            row.map((cell, y) => 
-              <SingleCell 
-                key={uuid()} 
-                isAlive={Boolean(cell)}
-                position={{x, y}}
-                handleClickEvent={handleClickEvent}
-              />
-            )
-          }
-        </div>
-      )}
+    <div>
+      <div style={styles.container}>
+        {grid.map((row, x) => 
+          <div style={styles.row} key={uuid()}>
+            {
+              row.map((cell, y) => 
+                <SingleCell 
+                  key={uuid()} 
+                  isAlive={Boolean(cell)}
+                  position={{x, y}}
+                  handleClickEvent={handleClickCell}
+                />
+              )
+            }
+          </div>
+        )}
+      </div>
+      <button onClick={() => setIsPlaying(true)}>Start</button>
+      <button onClick={() => setIsPlaying(false)}>Stop</button>
+      <button onClick={() => randomizeCells()}>Randomize cells</button>
+      <button onClick={() => emptyCells()}>Empty grid</button>
+      <div> 
+        Size of the grid
+        <button onClick={() => onChangeGridSize(15)}>15 x 15</button>
+        <button onClick={() => onChangeGridSize(30)}>30 x 30</button>
+        <button onClick={() => onChangeGridSize(45)}>45 x 45</button>
+      </div>
     </div>
   );
 };
