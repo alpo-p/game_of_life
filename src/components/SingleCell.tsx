@@ -19,8 +19,8 @@ interface P {
   isAlive?: boolean,
   handleClickEvent: (x: number, y: number) => void
   position: {
-    x: number,
-    y: number
+    y: number,
+    x: number
   }
 }
 
@@ -29,8 +29,8 @@ export const SingleCell = ({ isAlive, handleClickEvent, position }: P) => {
 
   const handleClick = () => {
     setAliveState(state => !state);
-    const { x, y } = position;
-    handleClickEvent(x, y);
+    const { y, x } = position;
+    handleClickEvent(y, x);
   };
 
   return (
