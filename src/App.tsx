@@ -1,9 +1,10 @@
 import React from 'react';
-import { SingleCell } from './components/SingleCell';
+
+import { Grid } from './components/Grid';
 
 function App() {
   return (
-    <SingleCell />
+    <Grid />
   );
 }
 
